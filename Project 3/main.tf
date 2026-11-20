@@ -29,16 +29,16 @@ resource "aws_cloudwatch_metric_alarm" "cpu_alarm" {
   alarm_name          = "HighCPUAlarm"
   comparison_operator = "GreaterThanThreshold"
 
-  evaluation_periods  = 2
-  metric_name         = "CPUUtilization"
-  namespace           = "AWS/EC2"
+  evaluation_periods = 2
+  metric_name        = "CPUUtilization"
+  namespace          = "AWS/EC2"
 
-  period              = 120
-  statistic           = "Average"
+  period    = 120
+  statistic = "Average"
 
-  threshold           = 70
+  threshold = 70
 
-  alarm_description   = "Alarm when CPU exceeds 70%"
+  alarm_description = "Alarm when CPU exceeds 70%"
 
   dimensions = {
     InstanceId = aws_instance.monitoring_server.id

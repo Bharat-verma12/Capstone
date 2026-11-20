@@ -2,26 +2,30 @@ name: Terraform Validation
 
 on:
   push:
-    branches: [main]
+    branches:
+      - main
+      - feature/update-terraform
   pull_request:
-    branches: [main]
 
 jobs:
   terraform:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout Repository
         uses: actions/checkout@v4
 
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
 
+      - name: Terraform Init
+        shell: pwsh
+        run: terraform init
+
       - name: Terraform Format Check
-        run: terraform fmt -check -recursive
+        shell: pwsh
+        run: terraform fmt -check
 
       - name: Terraform Validate
-        working-directory: project-06-version-control-infrastructure
-        run: |
-          terraform init
-          terraform validate
+        shell: pwsh
+        run: terraform validate

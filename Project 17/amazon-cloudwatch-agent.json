@@ -1,0 +1,38 @@
+{
+  "agent": {
+    "metrics_collection_interval": 60,
+    "run_as_user": "root"
+  },
+  "logs": {
+    "logs_collected": {
+      "files": {
+        "collect_list": [
+          {
+            "file_path": "/var/log/messages",
+            "log_group_name": "project17-system-logs",
+            "log_stream_name": "{instance_id}/messages",
+            "retention_in_days": 7
+          },
+          {
+            "file_path": "/var/log/secure",
+            "log_group_name": "project17-system-logs",
+            "log_stream_name": "{instance_id}/secure",
+            "retention_in_days": 7
+          },
+          {
+            "file_path": "/var/log/nginx/access.log",
+            "log_group_name": "project17-nginx-logs",
+            "log_stream_name": "{instance_id}/access",
+            "retention_in_days": 7
+          },
+          {
+            "file_path": "/var/log/nginx/error.log",
+            "log_group_name": "project17-nginx-logs",
+            "log_stream_name": "{instance_id}/error",
+            "retention_in_days": 7
+          }
+        ]
+      }
+    }
+  }
+}

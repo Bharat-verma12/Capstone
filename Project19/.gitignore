@@ -1,0 +1,7 @@
+*.log
+logs/
+backups/
+*.tar.gz
+.env
+.env.*
+.aws/

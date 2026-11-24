@@ -17,6 +17,7 @@ Each project has its own folder and README with steps, commands, and screenshots
 | Cloud | AWS: EC2, VPC, S3, IAM, CloudWatch, ALB, ACM, ECR, EKS |
 | Infrastructure as Code | Terraform (AWS provider v5/v6), `terraform-aws-modules/eks` |
 | CI/CD | GitHub Actions (`windows-latest`), OIDC authentication to AWS |
+| Linux administration | useradd, groupadd, usermod, chown, chmod |
 | Containers | Docker, Nginx, Amazon ECR, Amazon EKS, kubectl |
 | Configuration management | Ansible |
 | Windows infrastructure | Active Directory Domain Services, Windows DNS |
@@ -32,6 +33,7 @@ Each project has its own folder and README with steps, commands, and screenshots
 | 2 | Static website on S3 | IaC / Storage | Terraform, S3 | [Project 2](./Project%202/readme.md) |
 | 3 | EC2 monitoring with a CloudWatch CPU alarm | IaC / Monitoring | Terraform, CloudWatch | [Project 3](./Project%203/readme.md) |
 | 4 | IAM user automation | IaC / Security | Terraform, IAM | [Project 4](./Project%204/readme.md) |
+| 5 | Linux users, groups, and permissions | Linux / Security | useradd, groupadd, chown, chmod | [Project 5](./Project%205/readme.md) |
 | 6 | Terraform and GitHub workflow (feature branches) | Version control | Git, GitHub | [Project 6](./Project%206/readme.md) |
 | 7 | CI validation for Terraform | CI/CD | GitHub Actions | [project 7](./project%207/readme.md) |
 | 8 | Build and run a Docker app locally | Containers | Docker, Nginx | [project-8-docker-app](./project-8-docker-app/README.md) |
@@ -52,7 +54,6 @@ Each project has its own folder and README with steps, commands, and screenshots
 | 23 | IAM role-based access | Security | IAM Role, Instance Profile | [project-23-iam-role](./project-23-iam-role/README.md) |
 | 24 | Manual chaos test | Reliability | systemctl, curl | [project-24-manual-chaos-test](./project-24-manual-chaos-test/readme.md) |
 
-> Project 5 has no files in the repository yet.
 
 ---
 
@@ -65,6 +66,10 @@ Each project has its own folder and README with steps, commands, and screenshots
 - **Project 3:** EC2 instance plus the `HighCPUAlarm` CloudWatch alarm (average CPU above 70% for 2 periods of 120 seconds).
 - **Project 4:** IAM user `s3-readonly-user` with an S3 read-only policy. The policy JSON is passed in as a variable.
 - **Project 11:** Single EC2 instance with `Name`, `Environment`, and `Owner` tags.
+
+### Linux Administration
+- **Project 5:** Users `alice` and `bob` and the group `developers`, with `alice` added to the group.
+  The directory `/secure-data` is owned by `root:developers` with mode `770`, so the owner and group have full access and others have none.
 
 ### CI/CD and GitOps
 - **Project 6:** Feature-branch workflow (`feature/update-terraform`) and pushes to GitHub.
@@ -142,8 +147,7 @@ terraform apply tfplan
 terraform destroy   # clean up when finished
 ```
 
-> Keep each project in its own folder with its own state. Project 14 notes that running the wrong config
-> in a folder destroyed 11 EKS resources.
+
 
 ---
 
@@ -155,17 +159,7 @@ terraform destroy   # clean up when finished
 - Several demo projects open SSH to `0.0.0.0/0` or use broad policies (`Resource: "*"`, `AmazonS3FullAccess`).
   Restrict these before any non-demo use.
 
-## Known Gaps / Pending Evidence
 
-| Project | Pending |
-|---------|---------|
-| 5 | No content yet |
-| 9 | Login screenshots for both domain users |
-| 11 | README to be written |
-| 16 | Real values and screenshots (placeholders remain) |
-| 17, 18, 23 | Some screenshots still marked "[Add a screenshot…]" |
-| 20 | Targets show `unused`: AZ mismatch (1c vs 1a/1b) and the target group isn't attached to a listener |
-| 24 | Recovery time and total downtime not yet recorded |
 
 ## Cleanup
 

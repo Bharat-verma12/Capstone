@@ -1,0 +1,48 @@
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "TerraformStateBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:ListBucket",
+                "s3:GetBucketLocation"
+            ],
+            "Resource": "arn:aws:s3:::capstone-project18-tfstate-590507089733"
+        },
+        {
+            "Sid": "TerraformStateFile",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject"
+            ],
+            "Resource": "arn:aws:s3:::capstone-project18-tfstate-590507089733/project18/terraform.tfstate"
+        },
+        {
+            "Sid": "TerraformStateLock",
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:PutObject",
+                "s3:DeleteObject"
+            ],
+            "Resource": "arn:aws:s3:::capstone-project18-tfstate-590507089733/project18/terraform.tfstate.tflock"
+        },
+        {
+            "Sid": "ManageGitOpsBucket",
+            "Effect": "Allow",
+            "Action": [
+                "s3:CreateBucket",
+                "s3:DeleteBucket",
+                "s3:ListBucket",
+                "s3:GetBucket*",
+                "s3:GetEncryptionConfiguration",
+                "s3:GetLifecycleConfiguration",
+                "s3:GetReplicationConfiguration",
+                "s3:PutBucketTagging"
+            ],
+            "Resource": "arn:aws:s3:::capstone-project18-gitops-*"
+        }
+    ]
+}

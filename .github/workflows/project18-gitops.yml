@@ -60,6 +60,15 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v3
 
+      - name: Check AWS role configuration
+        env:
+          AWS_ROLE_ARN: ${{ vars.AWS_ROLE_ARN }}
+        run: |
+          if [ -z "$AWS_ROLE_ARN" ]; then
+            echo "::error::Set the AWS_ROLE_ARN Actions variable in the production environment or repository to an IAM role trusted for GitHub OIDC."
+            exit 1
+          fi
+
       - name: Configure AWS
         uses: aws-actions/configure-aws-credentials@v4
         with:

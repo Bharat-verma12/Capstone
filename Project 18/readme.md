@@ -61,6 +61,23 @@ Security and safety settings:
 - **Approval gate:** the Apply job uses the `production` environment.
 - **No overlapping deployments:** `concurrency: project18-deployment` with `cancel-in-progress: false`.
 
+### Deployment prerequisites
+Before merging or manually dispatching the workflow:
+
+1. In AWS, create the GitHub OIDC identity provider (`https://token.actions.githubusercontent.com`,
+   audience `sts.amazonaws.com`) if it does not already exist. Create an IAM role whose trust policy
+   permits `sts:AssumeRoleWithWebIdentity` for that provider, with the audience above and subject
+   `repo:Bharat-verma12/Capstone:environment:production`.
+2. Grant the role permissions to manage the Project 18 S3 bucket and to access the existing state
+   bucket, state object, and S3 lockfile (including lockfile deletion). The state bucket must exist
+   before Terraform initializes the backend.
+3. In GitHub, set the Actions variable `AWS_ROLE_ARN` to that role's ARN under the `production`
+   environment's variables, or as a repository Actions variable. Configure any required
+   environment approvals as appropriate.
+
+An unset or unavailable `AWS_ROLE_ARN` prevents the Apply job from assuming a role. After configuring
+the role and variable, rerun the deployment; validation on pull requests does not need AWS credentials.
+
 ## Steps
 
 ### 1. Validate locally
